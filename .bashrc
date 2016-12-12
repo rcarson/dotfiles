@@ -18,6 +18,13 @@ if [[ -d ${HOME}/.autoload ]]; then
     done
 fi
 
+# Source in all .bash.d files
+if [[ -d ${HOME}/.bash.d ]]; then
+    for file in `find ${HOME}/.bash.d -type f`; do
+	source $file
+    done
+fi
+
 # set vi bindings
 set -o vi
 
@@ -31,6 +38,9 @@ export HISTFILE="${HOME}/.$(logname)_history"
 export HISTFILESIZE=10000
 export HISTSIZE=1000
 
+# Aliases
+alias grep="$(which grep) --color=auto"
+
 # Tools/Apps
 if which -s emacs; then
     export VISUAL="$(which emacs) -nw"
@@ -40,8 +50,6 @@ fi
 if which -s git; then
     alias config="$(which git) --git-dir=${HOME}/.dotfiles/ --work-tree=$HOME"
 fi
-
-alias grep="$(which grep) --color=auto"
 
 export REMOTE_AUTOLOAD_FILES=(
     "http://git.kernel.org/cgit/git/git.git/plain/contrib/completion/git-completion.bash|git-completion.bash"
