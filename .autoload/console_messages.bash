@@ -33,21 +33,32 @@ function __con_unset_cur_column ()
     unset __CON_CUR_COLUMN__
 }
 
+function __con_inflight ()
+{
+    [[ ${__CON_CUR_COLUMN__:+_} == '_' ]] && return 0
+    return 1
+}
+
 function __con_status_message ()
 {
     local message="${*}"
     local status_cols=$(__con_status_columns)
     local max_columns=$(__con_max_columns)
-    echo "$(tput cuf $((max_columns-__CON_CUR_COLUMN__)))$(tput cub $((${#message}+1)))$message"
-    __con_unset_cur_column
+    echo "$(tput cuf $((max_columns-__CON_CUR_COLUMN__)))$(tput cub $((${#message}+1)))$message" && {
+	__con_unset_cur_column
+    }
 }
     
 function con_message ()
 {
+    # if we have a message in flight already, reset
+    __con_inflight && echo
+
     local message="${*}"
     local message=${message:0:$(__con_max_message_width)}
-    echo -n "$message"
-    __con_set_cur_column "${#message}"
+    echo -n "$message" && {
+	__con_set_cur_column "${#message}"
+    } || echo
 }
 
 function con_success ()
