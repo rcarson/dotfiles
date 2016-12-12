@@ -6,21 +6,24 @@
 set -o vi
 
 ## Shell vars
-EDITOR=$(which emacs)
-PAGER=$(which less)
+export EDITOR="$(which vim) -e"
+export VISUAL="$(which vim)"
+export PAGER=$(which less)
 
 # History
-HISTFILE="${HOME}/.$(logname)_history"
-HISTFILESIZE=10000
-HISTSIZE=1000
+export HISTFILE="${HOME}/.$(logname)_history"
+export HISTFILESIZE=10000
+export HISTSIZE=1000
 
-## Aliases
+# Tools/Apps
 if which -s emacs; then
+    export VISUAL="$(which emacs) -nw"
     alias emacs="$(which emacs) -nw"
 fi
 
 if which -s git; then
-    alias dotfile="$(which git) --git-dir=${HOME}/.dotfiles/ --work-tree=$HOME"
+    alias config="$(which git) --git-dir=${HOME}/.dotfiles/ --work-tree=$HOME"
 fi
 
+## Aliases
 alias grep="$(which grep) --color=auto"
