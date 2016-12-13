@@ -1,4 +1,8 @@
+#!/usr/bin/env bash
+
 if which -s emacs; then
-    export VISUAL="$(which emacs) -nw"
-    alias emacs="$(which emacs) -nw"
+    VISUAL="$(which emacs) -nw"
+    export VISUAL
+    
+    alias emacs='$(which emacs) -nw'
 fi
