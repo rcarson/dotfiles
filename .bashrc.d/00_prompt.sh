@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+[[ $- == *i* ]] || return
 
 if [[ -f /usr/lib/git-core/git-sh-prompt ]]; then
     source /usr/lib/git-core/git-sh-prompt

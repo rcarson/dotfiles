@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-shopt -s histappend
+[[ $- == *i* ]] && shopt -s histappend
 
 # History
 HISTFILE="${HOME}/.$(logname)_history"

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# set vi bindings
-set -o vi
+# set vi bindings (interactive only)
+[[ $- == *i* ]] && set -o vi
 
 ## Shell vars
 if which vim >/dev/null 2>&1; then
